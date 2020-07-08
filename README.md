@@ -9,6 +9,8 @@ Written in JavaScript ran on NodeJS headless provided by Puppeteer.
 - [x] incognito
 - [x] start to finish under 4 seconds
 - [x] proxies
+- [x] declare sizing
+- [x] random sizing declaration
 
 ### Special Thanks
 NateC  

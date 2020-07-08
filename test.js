@@ -7,6 +7,7 @@ stopwatch.start();
 console.log("Started!");
 
 const url = process.argv.slice(2);
+const argSize = process.argv.slice(3);
 
 (async () => {
 	// const oldProxyUrl = 'http://user:pass@url:port';
@@ -37,10 +38,29 @@ const url = process.argv.slice(2);
 		path: 'itemPage.png'
 	});
 
-	await page.evaluate(() => {
-		document.getElementById("s").selectedIndex = "1";
-		document.getElementsByName("commit")[0].click();
-	});
+	console.log(argSize);
+
+	await page.evaluate((argSize) => {
+		var i;
+		var sizesAvailabe = [];
+
+		for (i = 0; i < document.getElementById('s').length; i++) {
+			var size;
+
+			size = document.getElementById('s').options[i].text;
+			sizesAvailabe.push(i);
+
+			if (argSize == 'Random') {
+				var randomSize = Math.floor(Math.random() * (sizesAvailabe.length - 0)) + 0;
+				document.getElementById("s").selectedIndex = randomSize;
+			}
+
+			if (size == argSize) {
+				document.getElementById("s").selectedIndex = i;
+			}
+			document.getElementsByName("commit")[0].click();
+		}
+	}, argSize);
 
 	await page.screenshot({
 		path: 'addedPage.png'

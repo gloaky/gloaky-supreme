@@ -7,6 +7,7 @@ stopwatch.start();
 console.log("Started!");
 
 const url = process.argv.slice(2);
+const argSize = process.argv.slice(3);
 
 (async () => {
 	const oldProxyUrl = 'http://user:pass@url:port';
@@ -17,6 +18,7 @@ const url = process.argv.slice(2);
 	const browser = await puppeteer.launch({
 		args: [`--proxy-server=${newProxyUrl}`]
 	});
+
 	const context = await browser.createIncognitoBrowserContext();
 	const page = await context.newPage();
 
@@ -31,10 +33,29 @@ const url = process.argv.slice(2);
 		waitUntil: 'load'
 	});
 
-	await page.evaluate(() => {
-		document.getElementById("s").selectedIndex = "1";
-		document.getElementsByName("commit")[0].click();
-	});
+	console.log(argSize);
+
+	await page.evaluate((argSize) => {
+		var i;
+		var sizesAvailabe = [];
+
+		for (i = 0; i < document.getElementById('s').length; i++) {
+			var size;
+
+			size = document.getElementById('s').options[i].text;
+			sizesAvailabe.push(i);
+
+			if (argSize == 'Random') {
+				var randomSize = Math.floor(Math.random() * (sizesAvailabe.length - 0)) + 0;
+				document.getElementById("s").selectedIndex = randomSize;
+			}
+
+			if (size == argSize) {
+				document.getElementById("s").selectedIndex = i;
+			}
+			document.getElementsByName("commit")[0].click();
+		}
+	}, argSize);
 
 	await page.waitFor(850),
 		await page.goto('https://www.supremenewyork.com/checkout', {

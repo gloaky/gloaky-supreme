@@ -9,7 +9,7 @@ Todo list for gloaky-supreme
 - [x] incognito
 - [x] start to finish under 4 seconds
 - [ ] keywords
-- [ ] declare sizing
+- [x] declare sizing
 - [ ] add to cart/process payment loops
 - [ ] multiple information
 - [ ] multiple tasks
