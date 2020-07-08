@@ -5,7 +5,7 @@ const stopwatch = new Stopwatch();
 stopwatch.start();
 console.log("Started!");
 
-var url = process.argv.slice();
+const url = process.argv.slice(2);
 
 (async () => {
 	const browser = await puppeteer.launch();
@@ -24,8 +24,9 @@ var url = process.argv.slice();
 		document.getElementById("s").selectedIndex = "1";
 		document.getElementsByName("commit")[0].click();
 	});
+
 	await page.screenshot({
-		path:  'addedPage.png'
+		path: 'addedPage.png'
 	});
 
 	await page.waitFor(300),
