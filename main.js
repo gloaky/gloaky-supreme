@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const proxyChain = require('proxy-chain');
 const Stopwatch = require('statman-stopwatch');
 
 const stopwatch = new Stopwatch();
@@ -8,9 +9,23 @@ console.log("Started!");
 const url = process.argv.slice(2);
 
 (async () => {
-	const browser = await puppeteer.launch();
+	const oldProxyUrl = 'http://user:pass@url:port';
+	const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
+
+	console.log(newProxyUrl);
+
+	const browser = await puppeteer.launch({
+		args: [`--proxy-server=${newProxyUrl}`]
+	});
 	const context = await browser.createIncognitoBrowserContext();
 	const page = await context.newPage();
+
+	const username = 'zp34';
+	const password = '5qRgSb';
+
+	await page.authenticate({
+		'username': 'password'
+	})
 
 	await page.goto(url[0], {
 		waitUntil: 'load'
@@ -82,6 +97,7 @@ const url = process.argv.slice(2);
 	});
 
 	console.log("Finished in", stopwatch.stop() / 1000, "seconds!");
-	
+
+	await proxyChain.closeAnonymizedProxy(newProxyUrl, true);
 	await browser.close();
 })();

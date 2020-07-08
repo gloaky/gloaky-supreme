@@ -8,6 +8,7 @@ Written in JavaScript ran on NodeJS headless provided by Puppeteer.
 - [x] headless
 - [x] incognito
 - [x] start to finish under 4 seconds
+- [x] proxies
 
 ### Special Thanks
 NateC  

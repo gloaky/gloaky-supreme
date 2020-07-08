@@ -13,7 +13,7 @@ Todo list for gloaky-supreme
 - [ ] add to cart/process payment loops
 - [ ] multiple information
 - [ ] multiple tasks
-- [ ] proxies
+- [x] proxies
 - [ ] captcha harvester
 
 ## Research 
