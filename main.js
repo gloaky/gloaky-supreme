@@ -5,14 +5,14 @@ const stopwatch = new Stopwatch();
 stopwatch.start();
 console.log("Started!");
 
-var myArgs = process.argv.slice(2);
+var url = process.argv.slice();
 
 (async () => {
 	const browser = await puppeteer.launch();
 	const context = await browser.createIncognitoBrowserContext();
 	const page = await context.newPage();
 
-	await page.goto(myArgs[0], {
+	await page.goto(url[0], {
 		waitUntil: 'load'
 	});
 
