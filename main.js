@@ -16,9 +16,18 @@ var myArgs = process.argv.slice(2);
 		waitUntil: 'load'
 	});
 
+	await page.screenshot({
+		path: 'itemPage.png'
+	});
+
 	await page.evaluate(() => {
 		document.getElementById("s").selectedIndex = "1";
 		document.getElementsByName("commit")[0].click();
+	});
+
+	let addedPage = Date.now();
+	await page.screenshot({
+		path:  'addedPage.png'
 	});
 
 	await page.waitFor(300),
@@ -77,11 +86,11 @@ var myArgs = process.argv.slice(2);
 		}
 	});
 
-	console.log("Finished in", stopwatch.stop()/1000, "seconds!");
+	console.log("Finished in", stopwatch.stop() / 1000, "seconds!");
 
-	let ts = Date.now();
-
-	page.screenshot({
-		path: ts + '.png'
+	await page.screenshot({
+		path: 'cartPage.png'
 	});
+
+	await browser.close();
 })();
