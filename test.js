@@ -16,12 +16,20 @@ const url = process.argv.slice(2);
 		waitUntil: 'load'
 	});
 
+	await page.screenshot({
+		path: 'itemPage.png'
+	});
+
 	await page.evaluate(() => {
 		document.getElementById("s").selectedIndex = "1";
 		document.getElementsByName("commit")[0].click();
 	});
 
-	await page.waitFor(850),
+	await page.screenshot({
+		path: 'addedPage.png'
+	});
+
+	await page.waitFor(300),
 		await page.goto('https://www.supremenewyork.com/checkout', {
 			waitUntil: 'load'
 		});
@@ -75,13 +83,13 @@ const url = process.argv.slice(2);
 				document.getElementById("checkout_form").submit();
 			}
 		}
-	});
-
-	await page.screenshot({
+    });
+    
+    await page.screenshot({
 		path: 'cartPage.png'
 	});
 
 	console.log("Finished in", stopwatch.stop() / 1000, "seconds!");
-	
+
 	await browser.close();
 })();
