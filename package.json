@@ -1,0 +1,15 @@
+{
+  "name": "gloaky-supreme",
+  "version": "0.0.1",
+  "description": "ATC and ACO",
+  "main": "main.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "gloak#1141",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^5.0.0",
+    "statman-stopwatch": "^2.11.1"
+  }
+}
