@@ -24,8 +24,6 @@ var url = process.argv.slice();
 		document.getElementById("s").selectedIndex = "1";
 		document.getElementsByName("commit")[0].click();
 	});
-
-	let addedPage = Date.now();
 	await page.screenshot({
 		path:  'addedPage.png'
 	});
