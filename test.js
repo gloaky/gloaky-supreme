@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const proxyChain = require('proxy-chain');
 const Stopwatch = require('statman-stopwatch');
 
 const stopwatch = new Stopwatch();
@@ -8,9 +9,25 @@ console.log("Started!");
 const url = process.argv.slice(2);
 
 (async () => {
+	// const oldProxyUrl = 'http://user:pass@url:port';
+	// const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
+
+	// console.log(newProxyUrl);
+
+	// const browser = await puppeteer.launch({
+	// 	args: [`--proxy-server=${newProxyUrl}`]
+	// });
+
 	const browser = await puppeteer.launch();
 	const context = await browser.createIncognitoBrowserContext();
 	const page = await context.newPage();
+
+	// const username = 'zp34';
+	// const password = '5qRgSb';
+
+	// await page.authenticate({
+	// 	'username': 'password'
+	// })
 
 	await page.goto(url[0], {
 		waitUntil: 'load'
@@ -29,7 +46,7 @@ const url = process.argv.slice(2);
 		path: 'addedPage.png'
 	});
 
-	await page.waitFor(300),
+	await page.waitFor(850),
 		await page.goto('https://www.supremenewyork.com/checkout', {
 			waitUntil: 'load'
 		});
@@ -83,13 +100,14 @@ const url = process.argv.slice(2);
 				document.getElementById("checkout_form").submit();
 			}
 		}
-    });
-    
-    await page.screenshot({
+	});
+
+	await page.screenshot({
 		path: 'cartPage.png'
 	});
 
 	console.log("Finished in", stopwatch.stop() / 1000, "seconds!");
 
+	// await proxyChain.closeAnonymizedProxy(newProxyUrl, true);
 	await browser.close();
 })();
