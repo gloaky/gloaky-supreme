@@ -11,6 +11,8 @@ Written in JavaScript ran on NodeJS headless provided by Puppeteer.
 - [x] proxies
 - [x] declare sizing
 - [x] random sizing declaration
+- [x] single keyword
+- [x] product availability
 
 ### Special Thanks
 NateC  
