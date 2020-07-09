@@ -10,10 +10,12 @@ Todo list for gloaky-supreme
 - [x] start to finish under 4 seconds
 - [ ] keywords
 - [x] declare sizing
+- [x] random sizing declaration
 - [ ] add to cart/process payment loops
 - [ ] multiple information
 - [ ] multiple tasks
 - [x] proxies
+- [ ] multiple proxies
 - [ ] captcha harvester
 
 ## Research 

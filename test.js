@@ -6,8 +6,9 @@ const stopwatch = new Stopwatch();
 stopwatch.start();
 console.log("Started!");
 
-const url = process.argv.slice(2);
-const argSize = process.argv.slice(3);
+// const url = process.argv.slice(2);
+// const category = process.argv.slice(2);
+const argSize = process.argv.slice(2);
 
 (async () => {
 	// const oldProxyUrl = 'http://user:pass@url:port';
@@ -30,7 +31,7 @@ const argSize = process.argv.slice(3);
 	// 	'username': 'password'
 	// })
 
-	await page.goto(url[0], {
+	await page.goto('https://www.supremenewyork.com/shop/all/shirts', {
 		waitUntil: 'load'
 	});
 
@@ -40,27 +41,46 @@ const argSize = process.argv.slice(3);
 
 	console.log(argSize);
 
-	await page.evaluate((argSize) => {
+	const productUrl = await page.evaluate(function () {
 		var i;
-		var sizesAvailabe = [];
 
-		for (i = 0; i < document.getElementById('s').length; i++) {
-			var size;
+		actualUrl = "";
 
-			size = document.getElementById('s').options[i].text;
-			sizesAvailabe.push(i);
-
-			if (argSize == 'Random') {
-				var randomSize = Math.floor(Math.random() * (sizesAvailabe.length - 0)) + 0;
-				document.getElementById("s").selectedIndex = randomSize;
+		for (i = 0; i < document.querySelectorAll('.product-name a.name-link').length; i++) {
+			if (document.querySelectorAll('.product-name a.name-link')[i].innerText == 'Embroidered S/S Shirt') {
+				actualUrl = document.querySelectorAll('.product-name a.name-link')[i].href.toString();
 			}
-
-			if (size == argSize) {
-				document.getElementById("s").selectedIndex = i;
-			}
-			document.getElementsByName("commit")[0].click();
 		}
-	}, argSize);
+		return actualUrl;
+	})
+
+	console.log(productUrl);
+
+	await page.goto(productUrl, {
+		waitUntil: 'load'
+	}),
+		page.evaluate((argSize) => {
+			var i;
+			var sizesAvailabe = [];
+
+
+			for (i = 0; i < document.getElementById('s').length; i++) {
+				var size;
+
+				size = document.getElementById('s').options[i].text;
+				sizesAvailabe.push(i);
+
+				if (argSize == 'Random') {
+					var randomSize = Math.floor(Math.random() * (sizesAvailabe.length - 0)) + 0;
+					document.getElementById("s").selectedIndex = randomSize;
+				}
+
+				if (size == argSize) {
+					document.getElementById("s").selectedIndex = i;
+				}
+				document.getElementsByName("commit")[0].click();
+			}
+		}, argSize);
 
 	await page.screenshot({
 		path: 'addedPage.png'
