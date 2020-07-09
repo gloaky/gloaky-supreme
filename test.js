@@ -8,7 +8,8 @@ console.log("Started!");
 
 // const url = process.argv.slice(2);
 // const category = process.argv.slice(2);
-const argSize = process.argv.slice(2);
+const keywords = process.argv.slice(2,3);
+const argSize = process.argv.slice(3);
 
 (async () => {
 	// const oldProxyUrl = 'http://user:pass@url:port';
@@ -40,19 +41,20 @@ const argSize = process.argv.slice(2);
 	});
 
 	console.log(argSize);
+	console.log(keywords);
 
-	const productUrl = await page.evaluate(function () {
+	const productUrl = await page.evaluate(function (keywords) {
 		var i;
 
 		actualUrl = "";
 
 		for (i = 0; i < document.querySelectorAll('.product-name a.name-link').length; i++) {
-			if (document.querySelectorAll('.product-name a.name-link')[i].innerText == 'Embroidered S/S Shirt') {
+			if (document.querySelectorAll('.product-name a.name-link')[i].innerText.includes(keywords)) {
 				actualUrl = document.querySelectorAll('.product-name a.name-link')[i].href.toString();
 			}
 		}
 		return actualUrl;
-	})
+	},keywords)
 
 	console.log(productUrl);
 
