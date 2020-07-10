@@ -16,7 +16,4 @@ Written in JavaScript ran on NodeJS headless provided by Puppeteer.
 
 ### Special Thanks
 NateC  
-MattM  
-
-Fly Fred Cook Group  
-https://discord.gg/rfK9VK
+MattM
