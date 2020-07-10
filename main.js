@@ -103,6 +103,7 @@ keywordArr = keywords[0].split(" ");
 		});
 
 	await page.evaluate((argSize) => {
+
 		function sleep(milliseconds) {
 			const date = Date.now()
 			let currentDate = null
@@ -169,7 +170,7 @@ keywordArr = keywords[0].split(" ");
 			year: "2023"
 		}
 
-		var auto_process = false // set this to true if you want the checkout to automatically click the process payment button
+		var auto_process = true // set this to true if you want the checkout to automatically click the process payment button
 
 		if (document.location == "https://www.supremenewyork.com/checkout") {
 
@@ -193,9 +194,9 @@ keywordArr = keywords[0].split(" ");
 			// accept terms
 			$('div.icheckbox_minimal').iCheck('check')
 
-			// complete
+			// process payment
 			if (auto_process) {
-				document.getElementById("checkout_form").submit()
+				document.getElementById("checkout_form").submit();
 			}
 		}
 	})
